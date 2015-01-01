@@ -29,10 +29,10 @@ require 'csv'
 
 
 class Bakery
-  attr_accessor :prepped_cookies, :cookie_basket
+  attr_accessor :prepped_cookies, :recipes, :oven
 
   def initialize
-    @cookie_sheet = []
+    @oven = []
     @recipes = []
   end
 
@@ -43,21 +43,21 @@ class Bakery
 
   def find_recipe_by_id(id)
     recipes.each do |a_recipe|
-      if a_recipe.id == id
-        return a_recipe
-      end
+      return a_recipe if a_recipe.id == id
+    end
   end
 
   def prep_batch(id)
-    current_recipe = find_recipe_by_id()
-    a_batch = Batch_of_Cookies.new({current_recipe.name, current_recipe.ingredients})
+    current_recipe = find_recipe_by_id(id)
+    a_batch = Batch_of_Cookies.new({name:current_recipe.name, ingredients:current_recipe.ingredients})
   end
 
-  def bake
-    # put in oven (push batch into array
+  def bake(a_batch)
+    oven << a_batch
   end
 
-  def remove_cookies
+  def remove_cookies!(a_batch)
+    oven.delete()
     # take out of oven (shift batch out of array)
   end
 
@@ -149,6 +149,21 @@ end
 
 #TESTING
 
+# p cookie_monster_shop.find_recipe_by_id("2")
+
+#creating two batch objects
+a_batch = cookie_monster_shop.prep_batch("2")
+another_batch = cookie_monster_shop.prep_batch("2")
+
+#printing out the two object id's for the batches we just created.
+p a_batch.object_id
+p another_batch.object_id
+
+# These are two different objects, so their id's are different.
+p a_batch.object_id == another_batch.object_id
+print cookie_monster_shop.bake(a_batch)
+
+
 
 # a_bakery.prepped_cookies.each { |cookie| print cookie.class}
 
@@ -204,13 +219,3 @@ end
 # • Pre-heated?
 # • to_s for self-status
 
-# Answer These Questions:
-
-# - What are essential classes?
-# - What attributes will each class have?
-# - What interface will each class provide?
-# - How will the classes interact with each other?
-# - Which classes will inherit from others, if any?
-
-
-# Your code here
