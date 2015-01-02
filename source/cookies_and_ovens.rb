@@ -34,10 +34,10 @@ class Bakery
     puts "- - - - - - M E N U - - - - - -\n"
 
     recipes.each do |a_recipe|
-      print "#{a_recipe.id}: #{a_recipe.name}\n"
+      print "#{a_recipe.id}. #{a_recipe.name}\n"
     end
 
-    print "0: Exit\n"
+    print "0. Return to Main Menu\n"
     puts "- - - - - - - - - - - - - - - -\n\n"
   end
 
@@ -57,17 +57,17 @@ class Bakery
   def get_batch_status(a_batch)
     current_time = Time.now
     if current_time < ( a_batch.start_time + (1 * 60) )
-      return "Raw"
+      return "raw"
     elsif current_time < ( a_batch.start_time + (5 * 60) )
-      return "Gooey"
+      return "gooey"
     elsif current_time < ( a_batch.start_time + (8 * 60) )
-      return "Almost Ready!"
+      return "almost ready"
     elsif current_time < ( a_batch.start_time + (8 * 60) + 30 )
-      return "Done"
+      return "done"
     elsif current_time < ( a_batch.start_time + (9 * 60) )
-      return "A Little Bit Toasty"
+      return "a little bit toasty"
     else
-      return "Burnt"
+      return "burnt"
     end
   end
 end
@@ -118,37 +118,3 @@ Ingredients:
 "
   end
 end
-
-#Runner
-
-print "Welcome to:
-#{Logo}
-"
-
-cookie_monster_shop = Bakery.new
-cookie_monster_shop.get_recipes('cookies.csv')
-
-
-cookie_monster_shop.display_menu
-print "Enter recipe number to bake: "
-user_input = gets.chomp
-
-
-case user_input
-when 1
-
-when 
-end
-
-
-
-# 🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪 
-# Answer These Questions:
-
-# - What are essential classes?
-# - What attributes will each class have?
-# - What interface will each class provide?
-# - How will the classes interact with each other?
-# - Which classes will inherit from others, if any?
-
-# 🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪
