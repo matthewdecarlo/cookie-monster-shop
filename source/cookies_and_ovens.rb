@@ -134,6 +134,7 @@ print "Enter recipe number to bake: "
 user_input = gets.chomp
 
 
+<<<<<<< HEAD
 # case user_input
 # when 1
 
@@ -153,3 +154,6 @@ user_input = gets.chomp
 # - Which classes will inherit from others, if any?
 
 # 🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪
+=======
+# 🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪
+>>>>>>> 5d3ec6b77f1d09f61fc4bb6f65238a89cb8f3d08
