@@ -31,10 +31,14 @@ class Bakery
   end
 
   def display_menu
-    puts "MENU"
+    puts "- - - - - - M E N U - - - - - -\n"
+
     recipes.each do |a_recipe|
       print "#{a_recipe.id}: #{a_recipe.name}\n"
     end
+
+    print "0: Exit\n"
+    puts "- - - - - - - - - - - - - - - -\n\n"
   end
 
   def prep_batch(id)
@@ -128,6 +132,14 @@ cookie_monster_shop.get_recipes('cookies.csv')
 cookie_monster_shop.display_menu
 print "Enter recipe number to bake: "
 user_input = gets.chomp
+
+
+# case user_input
+# when 
+
+# end
+
+
 
 
 # 🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪 
