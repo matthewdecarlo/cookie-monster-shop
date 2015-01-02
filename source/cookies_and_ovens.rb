@@ -135,8 +135,9 @@ user_input = gets.chomp
 
 
 # case user_input
-# when 
+# when 1
 
+# when 
 # end
 
 
