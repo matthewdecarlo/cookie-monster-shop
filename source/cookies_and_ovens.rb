@@ -8,28 +8,10 @@
 # By M.M.Design and Matthewwho
 
 require 'csv'
-
-# class Oven #
-#   attr_accessor :contents, :time_in_oven
-
-#   def initialize
-#     @contents = []
-#     @number_of_batches = contents.length / 12
-#   end
-
-#   def empty?
-#     contents.empty?
-#   end
-
-#   def bake(baking_time)
-#     contents.each { |cookie| cookie.bake(baking_time) }
-#   end
-
-# end
-
+require 'time'
 
 class Bakery
-  attr_accessor :prepped_cookies, :recipes, :oven
+  attr_accessor :recipes, :oven
 
   def initialize
     @oven = []
@@ -47,6 +29,13 @@ class Bakery
     end
   end
 
+  def display_menu
+    puts "MENU"
+    recipes.each do |a_recipe|
+      print "#{a_recipe.id}: #{a_recipe.name}\n"
+    end
+  end
+
   def prep_batch(id)
     current_recipe = find_recipe_by_id(id)
     a_batch = Batch_of_Cookies.new({name:current_recipe.name, ingredients:current_recipe.ingredients})
@@ -57,16 +46,26 @@ class Bakery
   end
 
   def remove_cookies!(a_batch)
-    oven.delete()
-    # take out of oven (shift batch out of array)
+    oven.delete(a_batch)
   end
 
-#   def get_batch_status
-#     # return the current status of cookies (raw, almost ready, done, a little bit toasty)
-#   end
+  def get_batch_status(a_batch)
+    current_time = Time.now
+    if current_time < ( a_batch.start_time + (1 * 60) )
+      return "Raw"
+    elsif current_time < ( a_batch.start_time + (5 * 60) )
+      return "Gooey"
+    elsif current_time < ( a_batch.start_time + (8 * 60) )
+      return "Almost Ready!"
+    elsif current_time < ( a_batch.start_time + (8 * 60) + 30 )
+      return "Done"
+    elsif current_time < ( a_batch.start_time + (9 * 60) )
+      return "A Little Bit Toasty"
+    else
+      return "Burnt"
+    end
+  end
 end
-
-
 
 class Recipe
   attr_accessor :id, :name, :ingredients, :bake_time, :baking_temperature
@@ -95,6 +94,7 @@ end
 
 class Batch_of_Cookies
   attr_accessor :name, :ingredients
+  attr_reader :start_time
 
   def initialize(attributes)
     @name         = attributes[:name]
@@ -104,8 +104,7 @@ class Batch_of_Cookies
 
   def to_s
 "
-A bacth of #{self.name} cookies.
-Price: $#{'%.2f' % self.price}
+A batch of #{self.name} cookies.
 
 Start Time: #{self.start_time}
 
@@ -115,35 +114,31 @@ Ingredients:
   end
 end
 
-# class Cookie
-#   def bake(time)
-#     self.cookie_time = cookie_time + time
-#   end
-
-#   def cookie_ready
-#     if cookie_time <= baking_time / 2
-#       "doughy"
-#     elsif cookie_time < baking_time
-#       "almost ready"
-#     elsif cookie_time == baking_time
-#       "ready"
-#     else
-#       "burned"
-#     end
-#   end
-
-#   def done?
-#     cookie_time == baking_time
-#   end
-# end
-# end
-
-
 #RUNNER
-  cookie_monster_shop = Bakery.new
-  cookie_monster_shop.get_recipes('cookies.csv')
-#   << [b1,b2,b3,b4] <<
-#   container.shift
+cookie_monster_shop = Bakery.new
+cookie_monster_shop.get_recipes('cookies.csv')
+
+print "Welcome to:
+The Cookie Monster Shop!
+
+"
+
+cookie_monster_shop.display_menu
+print "Enter recipe number to bake: "
+user_input = gets.chomp
+
+
+#   case user_input
+#   when "list"
+#     print bistro.list_recipes
+#     # raise "TODO: implement listing of recipes"
+#   when "display"
+#     print bistro.find_recipe_by_id(ARGV[1]).to_s
+#   else
+#     raise "enter list or display"
+#   end
+# end
+
 
 
 
@@ -151,17 +146,27 @@ end
 
 # p cookie_monster_shop.find_recipe_by_id("2")
 
-#creating two batch objects
+# creating two batch objects
+# a_batch = cookie_monster_shop.prep_batch("2")
+# another_batch = cookie_monster_shop.prep_batch("2")
+
+# #printing out the two object id's for the batches we just created.
+# p a_batch.object_id
+# p another_batch.object_id
+
+# # These are two different objects, so their id's are different.
+# p a_batch.object_id == another_batch.object_id
+# print cookie_monster_shop.bake(a_batch)
+
+
+
 a_batch = cookie_monster_shop.prep_batch("2")
-another_batch = cookie_monster_shop.prep_batch("2")
+p cookie_monster_shop.bake(a_batch)
+p cookie_monster_shop.remove_cookies!(a_batch)
+p cookie_monster_shop.get_batch_status(a_batch)
 
-#printing out the two object id's for the batches we just created.
-p a_batch.object_id
-p another_batch.object_id
 
-# These are two different objects, so their id's are different.
-p a_batch.object_id == another_batch.object_id
-print cookie_monster_shop.bake(a_batch)
+
 
 
 
