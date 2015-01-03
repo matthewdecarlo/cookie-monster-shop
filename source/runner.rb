@@ -39,7 +39,7 @@ while user_input != 0
   case user_input.to_i
   when 1
     clear_screen
-    cookie_monster_shop.display_menu
+    print cookie_monster_shop.display_menu
     print display_prompt
 
     user_input = gets.chomp

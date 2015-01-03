@@ -31,14 +31,16 @@ class Bakery
   end
 
   def display_menu
-    puts "- - - - - - M E N U - - - - - -\n"
+    menu = "- - - - - - M E N U - - - - - -\n"
 
     recipes.each do |a_recipe|
-      print "#{a_recipe.id}. #{a_recipe.name}\n"
+      menu << "#{a_recipe.id}. #{a_recipe.name}\n"
     end
 
-    print "0. Return to Main Menu\n"
-    puts "- - - - - - - - - - - - - - - -\n\n"
+    menu << "0. Return to Main Menu\n"
+    menu << "- - - - - - - - - - - - - - - -\n\n\n"
+
+    return menu
   end
 
   def prep_batch(id)
